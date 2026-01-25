@@ -1,3 +1,4 @@
+using NpcDesc.Models;
 using NpcDesc.Services;
 
 namespace NpcDesc.Tests;
@@ -98,7 +99,6 @@ NpcTemplate propmob
     CProp       Type            sHuman
     CProp       BaseStrmod      i100
     CProp       FireProtection  i-50
-    CProp       Boss            i1
 }";
 
         var templates = _parser.ParseContent(content);
@@ -108,8 +108,6 @@ NpcTemplate propmob
         Assert.Equal("Human", template.CustomProperties["Type"].StringValue);
         Assert.Equal(100, template.CustomProperties["BaseStrmod"].IntValue);
         Assert.Equal(-50, template.CustomProperties["FireProtection"].IntValue);
-        Assert.Equal(1, template.CustomProperties["Boss"].IntValue);
-        Assert.True(template.IsBoss);
     }
 
     [Fact]
@@ -234,5 +232,96 @@ NpcTemplate looter
         Assert.Equal(17, templates[0].LootGroupId);
         Assert.Equal(50, templates[0].MagicItemChance);
         Assert.Equal(3, templates[0].MagicItemLevel);
+    }
+
+    [Fact]
+    public void ParseContent_WithBossCProp_ParsesBossType()
+    {
+        var content = @"
+NpcTemplate bossmob
+{
+    Name        a Boss Mob
+    CProp       Boss            i1
+}";
+
+        var templates = _parser.ParseContent(content);
+
+        Assert.Single(templates);
+        var template = templates[0];
+        Assert.Equal(BossType.Boss, template.BossType);
+        Assert.True(template.IsBoss);
+        Assert.False(template.CustomProperties.ContainsKey("Boss"));
+    }
+
+    [Fact]
+    public void ParseContent_WithSuperBossCProp_ParsesSuperBossType()
+    {
+        var content = @"
+NpcTemplate superbossmob
+{
+    Name        a Super Boss Mob
+    CProp       SuperBoss       i1
+}";
+
+        var templates = _parser.ParseContent(content);
+
+        Assert.Single(templates);
+        var template = templates[0];
+        Assert.Equal(BossType.SuperBoss, template.BossType);
+        Assert.True(template.IsBoss);
+    }
+
+    [Fact]
+    public void ParseContent_WithLesserBossCProp_ParsesLesserBossType()
+    {
+        var content = @"
+NpcTemplate lesserbossmob
+{
+    Name        a Lesser Boss Mob
+    CProp       LesserBoss      i1
+}";
+
+        var templates = _parser.ParseContent(content);
+
+        Assert.Single(templates);
+        var template = templates[0];
+        Assert.Equal(BossType.LesserBoss, template.BossType);
+        Assert.True(template.IsBoss);
+    }
+
+    [Fact]
+    public void ParseContent_WithChampionCProp_ParsesChampionType()
+    {
+        var content = @"
+NpcTemplate championmob
+{
+    Name        a Champion Mob
+    CProp       Champion        i1
+}";
+
+        var templates = _parser.ParseContent(content);
+
+        Assert.Single(templates);
+        var template = templates[0];
+        Assert.Equal(BossType.Champion, template.BossType);
+        Assert.True(template.IsBoss);
+    }
+
+    [Fact]
+    public void ParseContent_WithNoBossCProp_BossTypeIsNone()
+    {
+        var content = @"
+NpcTemplate normalmob
+{
+    Name        a Normal Mob
+    CProp       Type            sAnimal
+}";
+
+        var templates = _parser.ParseContent(content);
+
+        Assert.Single(templates);
+        var template = templates[0];
+        Assert.Equal(BossType.None, template.BossType);
+        Assert.False(template.IsBoss);
     }
 }

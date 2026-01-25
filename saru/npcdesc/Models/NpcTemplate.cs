@@ -78,13 +78,12 @@ public class NpcTemplate
     // Custom Properties
     public Dictionary<string, CPropertyValue> CustomProperties { get; set; } = new(StringComparer.OrdinalIgnoreCase);
 
+    // Boss type
+    public BossType BossType { get; set; } = BossType.None;
+
     // Helper methods
     public string? GetSlayerType() => 
         CustomProperties.TryGetValue("Type", out var val) ? val.StringValue : null;
 
-    public bool IsBoss => 
-        CustomProperties.ContainsKey("Boss") || 
-        CustomProperties.ContainsKey("SuperBoss") || 
-        CustomProperties.ContainsKey("LesserBoss") ||
-        CustomProperties.ContainsKey("Champion");
+    public bool IsBoss => BossType != BossType.None;
 }

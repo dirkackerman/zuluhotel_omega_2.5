@@ -197,7 +197,27 @@ public class NpcDescParser
         {
             var cpropName = tokens[1];
             var cpropValue = tokens[2];
-            template.CustomProperties[cpropName] = CPropertyValue.FromTypedString(cpropValue);
+            
+            // Check for boss type CProps
+            var cpropNameLower = cpropName.ToLowerInvariant();
+            switch (cpropNameLower)
+            {
+                case "lesserboss":
+                    template.BossType = BossType.LesserBoss;
+                    break;
+                case "boss":
+                    template.BossType = BossType.Boss;
+                    break;
+                case "superboss":
+                    template.BossType = BossType.SuperBoss;
+                    break;
+                case "champion":
+                    template.BossType = BossType.Champion;
+                    break;
+                default:
+                    template.CustomProperties[cpropName] = CPropertyValue.FromTypedString(cpropValue);
+                    break;
+            }
             return;
         }
 

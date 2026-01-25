@@ -162,6 +162,7 @@ public class NpcDescCommands
         Console.WriteLine();
         Console.WriteLine($"NPC Template: {template.TemplateName}");
         Console.WriteLine($"  Name             : {template.Name}");
+        Console.WriteLine($"  Boss Type        : {template.BossType:F}");
         Console.WriteLine($"  Script           : {template.Script ?? "N/A"}");
         Console.WriteLine($"  Type             : {template.GetSlayerType() ?? "N/A"}");
         Console.WriteLine($"  ObjType          : 0x{template.ObjType:X} ({template.ObjType})");
@@ -176,8 +177,8 @@ public class NpcDescCommands
         }
         Console.WriteLine();
         Console.WriteLine($"  Alignment: {template.Alignment ?? "N/A"}");
-        Console.WriteLine($"  Hostile: {template.Hostile}");
-        Console.WriteLine($"  Is Boss: {template.IsBoss}");
+        Console.WriteLine($"  Hostile  : {template.Hostile}");
+        Console.WriteLine($"  Is Boss  : {template.IsBoss}");
 
         if (template.Skills.Count > 0)
         {
