@@ -192,6 +192,7 @@ function RecalcPhysicalDmg( attacker, defender, weapon, armor, byref basedamage,
 	if(DEBUG_MODE)
 		SendSysMessage(attacker, "He absorbed: "+absorbed+ " damage.", FONT_NORMAL, 2567 );
 		SendSysMessage( attacker, "Damage after absorption is: "+rawdamage, FONT_NORMAL, 2573 );
+		__RecordSimulatorMetric(struct{ "absorbed" := absorbed, "ar" := ar, "damage_before_ar" := basedamage, "damage_after_ar" := rawdamage });
 	endif
 	rawdamage := ModByProt( defender , rawdamage );
 	if( rawdamage < 0 )

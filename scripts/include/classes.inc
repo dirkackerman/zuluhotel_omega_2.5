@@ -3,7 +3,7 @@ use uo;
 //include "include/spelldata";
 include "include/itemutil";
 include "include/client";
-include ":staff:include/staff";
+include ":Staff:include/staff";
 
 const CLASSE_BONUS        		:= 1.5;
 const CLASSEID_BARD       		:= "IsBard";

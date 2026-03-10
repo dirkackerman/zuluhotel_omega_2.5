@@ -20,6 +20,25 @@
 const DEBUG_MODE	:= 1; // Set to 1 to enable debug output, 0 to disable
 
 
+// ---------------------------------------------------------------------------
+// Simulator metric hook — DO NOT REMOVE, DO NOT CALL OUTSIDE DEBUG_MODE BLOCKS
+//
+// This function is intentionally a no-op. The Omega combat simulator
+// (zuluhotel_omega_simulator) overrides it at runtime to capture internal
+// values (damage absorbed, multipliers, etc.) that are otherwise invisible
+// to the simulation engine.
+//
+// In POL this function does nothing. Only call it inside if(DEBUG_MODE) guards.
+//
+// Accepts either a single key-value pair or a struct of multiple metrics:
+//   __RecordSimulatorMetric("absorbed", absorbed);
+//   __RecordSimulatorMetric(struct{ "absorbed" := absorbed, "ar" := ar });
+// ---------------------------------------------------------------------------
+function __RecordSimulatorMetric(key_or_metrics, value := 0)
+	// No-op in POL — the simulator injects its own implementation.
+endfunction
+
+
 ////
 // Soundeffects
 // The first section is just an enum of existing sounds,
