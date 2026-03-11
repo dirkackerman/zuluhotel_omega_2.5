@@ -42,7 +42,8 @@ program trielementalscript(attacker, defender, weapon, armor, basedamage, rawdam
     if(RandomDiceStr("1d100") <= chance)
 
         var targ;
-        if( GetObjProperty( weapon , "Cursed" ) )
+        var cursed := GetObjProperty( weapon , "Cursed" );
+        if( cursed )
             //Print("TriElementalscript launched on the Attacker!");
             targ := attacker;
         else
@@ -52,12 +53,15 @@ program trielementalscript(attacker, defender, weapon, armor, basedamage, rawdam
 
         var spelldmg := (CalcSpellDamage( attacker, targ , 5 )*0.5);
         //Print("Spell damage before resist in TriScript: " + spelldmg);
+        var spelldmg_before_resist := spelldmg;
         spelldmg := Resisted( attacker , targ , 8 , spelldmg );
 		//Print("Spell damage after resist in TriScript: " + spelldmg);
 
         // 30% dmg nerf for mages and Mystic Archers
+        var class_nerf := 1.0;
         if(GetObjProperty(attacker , CLASSEID_MAGE) || GetObjProperty(attacker , CLASSEID_MYSTIC_ARCHER))
             spelldmg *= 0.7;
+            class_nerf := 0.7;
         endif
 
         PlayMovingEffect( attacker , targ , FX_SPELL_FIREBALL , 5 , 1 );
@@ -81,6 +85,7 @@ program trielementalscript(attacker, defender, weapon, armor, basedamage, rawdam
 
         if(DEBUG_MODE)
             PrintTextAbovePrivate( attacker , "I'm dealing this much spell damage: " +spelldmg, attacker );
+            __RecordSimulatorMetric(struct{ "effect_type" := "trielemental", "effect_triggered" := 1, "cursed" := cursed, "trielemental_spelldmg_base" := spelldmg_before_resist, "trielemental_spelldmg" := spelldmg, "trielemental_class_nerf" := class_nerf });
         endif
     endif
 
