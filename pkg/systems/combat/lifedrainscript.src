@@ -36,7 +36,7 @@ program lifedrainscript(attacker, defender, weapon, armor, basedamage, rawdamage
 		endif
 
 		if(DEBUG_MODE)
-			__RecordSimulatorMetric("effect_type", "lifedrain");
+			__RecordSimulatorMetric(struct{ "effect_type" := "lifedrain", "effect_triggered" := 1, "cursed" := cursed });
 		endif
 
 		if(DEBUG_MODE)
