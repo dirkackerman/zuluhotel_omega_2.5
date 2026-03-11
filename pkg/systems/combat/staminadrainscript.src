@@ -33,7 +33,7 @@ program staminadrainscript(attacker, defender, weapon, armor, basedamage, rawdam
         endif
 
 		if(DEBUG_MODE)
-			__RecordSimulatorMetric(struct{"effect_type" := "staminadrain", "cursed" := cursed});
+			__RecordSimulatorMetric(struct{ "effect_type" := "staminadrain", "effect_triggered" := 1, "cursed" := cursed });
 		endif
 
 		if(GetObjProperty(defender, "InSafeArea"))
