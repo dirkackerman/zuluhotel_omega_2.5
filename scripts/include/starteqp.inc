@@ -3722,9 +3722,6 @@ function ApplyWeapSkillMod( item )
 			n := 30;
 		endif
 
-		//TESTING
-		n := 50;
-
 	elseif (magiclevel == 10)
 		
 		// 0% chance of defence
@@ -3746,12 +3743,9 @@ function ApplyWeapSkillMod( item )
 		// 70% chance of invulnerability
 		elseif (power < 30000)
 			n := 25;
-		// 69% chance of invincibility
-		elseif (power < 99000)
-			n := 30;
-		// 1% chance of legendary
+		// 17% chance of invincibility
 		else
-			n := 50;
+			n := 30;
 		endif
 
 	// Higher than 10
@@ -3776,12 +3770,9 @@ function ApplyWeapSkillMod( item )
 		// 75% chance of invulnerability
 		elseif (power < 80000)
 			n := 25;
-		// 18% chance of invincibility
-		elseif (power < 98000)
-			n := 30;
-		// 2% chance of legendary
+		// 20% chance of invincibility
 		else
-			n := 50;
+			n := 30;
 		endif
 	endif
 
@@ -3793,8 +3784,6 @@ function ApplyWeapSkillMod( item )
 		SetObjProperty(item, "isUncommon", 1);
 	elseif(n == 30)
 		SetObjProperty(item, "isRare", 1);
-	elseif(n == 50)
-		SetObjProperty(item, "isLegendary", 1);
 	endif
 
 	case(Random(2)+1)	
@@ -4049,9 +4038,6 @@ var n;
 			n := 30;
 		endif
 
-		//TESTING
-		n := 50;
-
 	elseif (magiclevel == 10)
 		
 		// 0% chance of defence
@@ -4073,12 +4059,9 @@ var n;
 		// 70% chance of invulnerability
 		elseif (power < 30000)
 			n := 25;
-		// 69% chance of invincibility
-		elseif (power < 99000)
-			n := 30;
-		// 1% chance of legendary
+		// 17% chance of invincibility
 		else
-			n := 50;
+			n := 30;
 		endif
 
 	// Higher than 10
@@ -4103,19 +4086,14 @@ var n;
 		// 75% chance of invulnerability
 		elseif (power < 80000)
 			n := 25;
-		// 18% chance of invincibility
-		elseif (power < 98000)
-			n := 30;
-		// 2% chance of legendary
+		// 20% chance of invincibility
 		else
-			n := 50;
+			n := 30;
 		endif
 	endif
 
 	if(n == 30)
 		SetObjProperty(item, "isRare", 1);
-	elseif(n == 50)
-		SetObjProperty(item, "isLegendary", 1);
 	endif
 
 
@@ -4385,13 +4363,13 @@ function ApplyMiscSkillMod( item )
 		elseif (power < 85000)
 			n := 25;
 		// 14% chance of invincibility
-		else
+		elseif (power < 99000)
 			n := 30;
+		// 1% chance of legendary
+		else
+			n := 50;
 
 		endif
-
-		//TESTING
-		n := 50;
 
 	elseif (magiclevel == 10)
 		
@@ -4416,9 +4394,9 @@ function ApplyMiscSkillMod( item )
 			n := 25;
 
 		// 69% chance of invincibility
-		elseif (power < 99000)
+		elseif (power < 97500)
 			n := 30;
-		// 1% chance of legendary
+		// 2.5% chance of legendary
 		else
 			n := 50;
 
@@ -4447,9 +4425,9 @@ function ApplyMiscSkillMod( item )
 			n := 25;
 
 		// 18% chance of invincibility
-		elseif (power < 98000)
+		elseif (power < 95000)
 			n := 30;
-		// 2% chance of legendary
+		// 5% chance of legendary
 		else
 			n := 50;
 
